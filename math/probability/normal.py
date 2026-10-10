@@ -44,12 +44,29 @@ class Normal:
 
     def pdf(self, x):
         """
-        Placeholder PDF method to prevent checker attribute errors
+        Calculates the value of the PDF for a given x-value
         """
-        return 0
+        e = 2.7182818285
+        pi = 3.1415926536
+
+        coefficient = 1 / (self.stddev * ((2 * pi) ** 0.5))
+        exponent = -0.5 * (self.z_score(x) ** 2)
+
+        return coefficient * (e ** exponent)
 
     def cdf(self, x):
         """
-        Placeholder CDF method to prevent checker attribute errors
+        Calculates the value of the CDF for a given x-value
         """
-        return 0
+        pi = 3.1415926536
+
+        # Value passed into the error function Maclaurin series expansion
+        val = (x - self.mean) / (self.stddev * (2 ** 0.5))
+
+        # Taylor series approximation of erf(x) up to x^9
+        erf = (2 / (pi ** 0.5)) * (
+            val - (val ** 3) / 3 + (val ** 5) / 10 -
+            (val ** 7) / 42 + (val ** 9) / 216
+        )
+
+        return 0.5 * (1 + erf)

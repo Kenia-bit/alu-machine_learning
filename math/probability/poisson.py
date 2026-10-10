@@ -39,4 +39,3 @@ class Poisson:
             factorial *= i
 
         return (pow(e, -self.lambtha) * pow(self.lambtha, k)) / factorial
-    

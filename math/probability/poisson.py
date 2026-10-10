@@ -1,25 +1,22 @@
 #!/usr/bin/env python3
-
 """
-poisson distribution
+Poisson distribution module
 """
 
 
-class Poisson():
+class Poisson:
     """
-    poisson distribution
+    Class Poisson that represents a poisson distribution
     """
-    def __init__(self, data=None, lambtha=1.):
+    def __init__(self, data=None, lambtha=1.0):
         """
-        data is a list of the data to be used to estimate the distribution
-        lambtha is the expected number of occurences in a given interval
+        Initializes the Poisson distribution
         """
         if data is None:
             if lambtha <= 0:
                 raise ValueError("lambtha must be a positive value")
             self.lambtha = float(lambtha)
-
-        if data is not None:
+        else:
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
             if len(data) < 2:
@@ -28,16 +25,17 @@ class Poisson():
 
     def pmf(self, k):
         """
-        Calculates the value of the PMF for a given number of “successes”.
+        Calculates the value of the PMF for a given number of successes
         """
         if not isinstance(k, int):
             k = int(k)
+
         if k < 0:
             return 0
+
         e = 2.7182818285
         factorial = 1
         for i in range(1, k + 1):
             factorial *= i
-        return ((e ** (-self.lambtha)) * (self.lambtha ** k)) / factorial
-     
-    
+
+        return (pow(e, -self.lambtha) * pow(self.lambtha, k)) / factorial
